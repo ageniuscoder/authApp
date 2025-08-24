@@ -44,7 +44,7 @@ func main() {
 	}
 
 	//database setup
-	conn, err := sqlite.New(Db_addr)
+	db, err := sqlite.New(Db_addr)
 	if err != nil {
 		log.Fatal("Error Connecting Database", err)
 	}
@@ -53,7 +53,9 @@ func main() {
 
 	router := gin.Default()
 
-	router.POST("/signUp", auth.UserSignup())
+	router.POST("/signUp", auth.UserSignup(db))
+
+	router.POST("/logIn", auth.UserLogin())
 
 	//server setup
 

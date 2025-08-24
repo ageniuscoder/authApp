@@ -32,3 +32,20 @@ func New(path string) (*Sqlite, error) {
 		Db: db,
 	}, nil
 }
+
+func (s *Sqlite) CreateUser(username string, email string, password string, role string) (int64, error) {
+	stmt, err := s.Db.Prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)")
+	if err != nil {
+		return 0, err
+	}
+	defer stmt.Close()
+	res, err := stmt.Exec(username, email, password, role)
+	if err != nil {
+		return 0, err
+	}
+	lid, err := res.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+	return lid, nil
+}
