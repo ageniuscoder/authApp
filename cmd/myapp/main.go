@@ -13,6 +13,7 @@ import (
 
 	"github.com/ageniouscoder/myapp/internal/database/sqlite"
 	auth "github.com/ageniouscoder/myapp/internal/handlers"
+	auth_middleware "github.com/ageniouscoder/myapp/internal/middleware.go"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -56,6 +57,11 @@ func main() {
 	router.POST("/signUp", auth.UserSignup(db))
 
 	router.POST("/logIn", auth.UserLogin(db))
+
+	api := router.Group("api", auth_middleware.AuthMiddleware())
+	{
+		api.GET("/profile", auth.UserProfile())
+	}
 
 	//server setup
 

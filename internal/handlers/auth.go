@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	storage "github.com/ageniouscoder/myapp/internal/database"
-	"github.com/ageniouscoder/myapp/internal/jwt"
+	jwt1 "github.com/ageniouscoder/myapp/internal/jwt"
 	"github.com/ageniouscoder/myapp/internal/models"
 	"github.com/ageniouscoder/myapp/internal/utils"
 	"github.com/gin-gonic/gin"
@@ -73,7 +73,7 @@ func UserLogin(storage storage.Storage) gin.HandlerFunc {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Password is Incorrect. Try Again"})
 			return
 		}
-		token, err := jwt.GenrateJwt(user.Username, user.Role)
+		token, err := jwt1.GenrateJwt(user.Username, user.Role)
 
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Jwt token is Not Genrated"})

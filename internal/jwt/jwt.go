@@ -1,4 +1,4 @@
-package jwt
+package jwt1
 
 import (
 	"os"
