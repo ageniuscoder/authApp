@@ -2,6 +2,7 @@ package auth
 
 import (
 	"net/http"
+	"strings"
 
 	storage "github.com/ageniouscoder/myapp/internal/database"
 	"github.com/ageniouscoder/myapp/internal/models"
@@ -29,7 +30,12 @@ func UserSignup(storage storage.Storage) gin.HandlerFunc {
 		}
 		lid, err := storage.CreateUser(regInput.Username, regInput.Email, encPass, "user")
 		if err != nil {
+			if strings.Contains(err.Error(), "UNIQUE constraint failed") {
+				c.JSON(http.StatusConflict, gin.H{"error": "This username or Email already exists"})
+				return
+			}
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
 		}
 
 		c.JSON(http.StatusOK, gin.H{"id": lid, "username": regInput.Username})
