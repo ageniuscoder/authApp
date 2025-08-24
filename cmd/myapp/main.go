@@ -11,6 +11,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/ageniouscoder/myapp/internal/database/sqlite"
 	auth "github.com/ageniouscoder/myapp/internal/handlers"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -43,6 +44,10 @@ func main() {
 	}
 
 	//database setup
+	conn, err := sqlite.New(Db_addr)
+	if err != nil {
+		log.Fatal("Error Connecting Database", err)
+	}
 
 	//router setup
 
