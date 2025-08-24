@@ -17,6 +17,11 @@ type RegisterInput struct {
 	Password string `json:"password" binding:"required"`
 }
 
+type LoginInput struct {
+	Identifier string `json:"identifier" binding:"required"`
+	Password   string `json:"password" binding:"required"`
+}
+
 type CustomErrorResponse struct {
 	Field   string `json:"field"`
 	Tag     string `json:"tag"`

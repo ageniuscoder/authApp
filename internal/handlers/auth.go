@@ -1,10 +1,12 @@
 package auth
 
 import (
+	"database/sql"
 	"net/http"
 	"strings"
 
 	storage "github.com/ageniouscoder/myapp/internal/database"
+	"github.com/ageniouscoder/myapp/internal/jwt"
 	"github.com/ageniouscoder/myapp/internal/models"
 	"github.com/ageniouscoder/myapp/internal/utils"
 	"github.com/gin-gonic/gin"
@@ -42,8 +44,41 @@ func UserSignup(storage storage.Storage) gin.HandlerFunc {
 	}
 }
 
-func UserLogin() gin.HandlerFunc {
+func UserLogin(storage storage.Storage) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.JSON(http.StatusCreated, gin.H{"message": "user logged In succesfully"})
+		var input models.LoginInput
+		err := c.ShouldBindJSON(&input)
+		if err != nil {
+			if validationError, ok := err.(validator.ValidationErrors); ok {
+				c.JSON(http.StatusBadRequest, gin.H{"errors": utils.ValidationErr(validationError)})
+				return
+			}
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		user, err := storage.LoginUser(input.Identifier)
+
+		if err != nil {
+			if err == sql.ErrNoRows {
+				c.JSON(http.StatusNotFound, gin.H{"error": "User is Not registered with US"})
+				return
+			}
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+		err = utils.MatchPass(input.Password, user.Password)
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Password is Incorrect. Try Again"})
+			return
+		}
+		token, err := jwt.GenrateJwt(user.Username, user.Role)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Jwt token is Not Genrated"})
+		}
+
+		c.JSON(http.StatusOK, gin.H{"login": "succes", "token": token})
 	}
 }

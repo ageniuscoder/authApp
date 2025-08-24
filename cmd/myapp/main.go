@@ -55,7 +55,7 @@ func main() {
 
 	router.POST("/signUp", auth.UserSignup(db))
 
-	router.POST("/logIn", auth.UserLogin())
+	router.POST("/logIn", auth.UserLogin(db))
 
 	//server setup
 

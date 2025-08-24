@@ -14,6 +14,10 @@ func HashPass(pass string) (string, error) {
 
 	return string(hash), nil
 }
+
+func MatchPass(pass string, hash string) error {
+	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(pass))
+}
 func ValidationErr(err validator.ValidationErrors) []models.CustomErrorResponse {
 	var errors []models.CustomErrorResponse
 	for _, fieldErr := range err {

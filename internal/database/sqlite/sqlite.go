@@ -2,7 +2,9 @@ package sqlite
 
 import (
 	"database/sql"
+	"strings"
 
+	"github.com/ageniouscoder/myapp/internal/models"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -48,4 +50,29 @@ func (s *Sqlite) CreateUser(username string, email string, password string, role
 		return 0, err
 	}
 	return lid, nil
+}
+
+func (s *Sqlite) LoginUser(identifier string) (*models.User, error) {
+	var stmt *sql.Stmt
+	var err error
+
+	if strings.Contains(identifier, "@") {
+		stmt, err = s.Db.Prepare("SELECT * FROM users WHERE email = ?")
+	} else {
+		stmt, err = s.Db.Prepare("SELECT * FROM users WHERE username = ?")
+	}
+
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	var user models.User
+
+	err = stmt.QueryRow(identifier).Scan(&user.Id, &user.Username, &user.Email, &user.Password, &user.Role, &user.Created_at)
+	if err != nil {
+		return nil, err
+	}
+
+	return &user, nil
 }
