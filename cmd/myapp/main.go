@@ -38,11 +38,6 @@ func main() {
 	if Port == "" {
 		Port = "8080"
 	}
-	Jwt_secret := os.Getenv("JWT_SECRET")
-
-	if Jwt_secret == "" {
-		log.Fatal("jwt secret key must be set in env file")
-	}
 
 	//database setup
 	db, err := sqlite.New(Db_addr)

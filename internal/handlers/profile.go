@@ -19,7 +19,6 @@ func UserProfile() gin.HandlerFunc {
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{
-			"message":  "User profile accessed successfully",
 			"username": username,
 			"isAdmin":  role == "admin",
 		})

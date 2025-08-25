@@ -6,6 +6,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// bcrypt methods
 func HashPass(pass string) (string, error) {
 	hash, err := bcrypt.GenerateFromPassword([]byte(pass), bcrypt.DefaultCost)
 	if err != nil {
@@ -18,6 +19,8 @@ func HashPass(pass string) (string, error) {
 func MatchPass(pass string, hash string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(pass))
 }
+
+// validation errors
 func ValidationErr(err validator.ValidationErrors) []models.CustomErrorResponse {
 	var errors []models.CustomErrorResponse
 	for _, fieldErr := range err {
