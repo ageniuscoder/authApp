@@ -49,9 +49,12 @@ func main() {
 
 	router := gin.Default()
 
-	router.POST("/signUp", auth.UserSignup(db))
+	// CORS Middleware
+	router.Use(auth_middleware.CorsMiddleware())
 
-	router.POST("/logIn", auth.UserLogin(db))
+	router.POST("/signup", auth.UserSignup(db))
+
+	router.POST("/login", auth.UserLogin(db))
 
 	api := router.Group("api", auth_middleware.AuthMiddleware())
 	{
@@ -84,5 +87,4 @@ func main() {
 		log.Fatalf("Server forced to shutdown: %v", err)
 	}
 	slog.Info("Server shutDown gracefully")
-
 }

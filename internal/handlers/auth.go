@@ -73,7 +73,7 @@ func UserLogin(storage storage.Storage) gin.HandlerFunc {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Password is Incorrect. Try Again"})
 			return
 		}
-		token, err := jwt1.GenrateJwt(user.Username, user.Role)
+		token, err := jwt1.GenrateJwt(user.Username, user.Email, user.Role)
 
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Jwt token is Not Genrated"})
