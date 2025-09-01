@@ -19,7 +19,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Entry point for the application")
+	fmt.Println("Entry point for the auth application")
 
 	//env load
 	err := godotenv.Load()
