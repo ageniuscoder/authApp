@@ -87,26 +87,24 @@ The project is organized into two main directories: `backend` for the Go API and
 ├── go.mod                        # Go module dependencies.
 ├── go.sum                        # Go module checksums.
 └── internal/
-├── database/
-│   ├── sqlite/
-│   │   └── sqlite.go         # SQLite database implementation.
-│   └── storage.go            # Database interface definition.
-├── handlers/
-│   ├── auth.go               # Handlers for signup and login.
-│   └── profile.go            # Handler for user profile retrieval.
-├── jwt/
-│   └── jwt.go                # JWT token generation logic.
-├── middleware.go/
-│   ├── auth_middleware.go    # Authentication middleware for protected routes.
-│   └── cors_middleware.go    # CORS middleware.
-├── models/
-│   └── models.go             # Data structures for the application.
-└── utils/
-└── utils.go              # Utility functions for password hashing and validation.
+    ├── database/
+    │   ├── sqlite/
+    │   │   └── sqlite.go         # SQLite database implementation.
+    │   └── storage.go            # Database interface definition.
+    ├── handlers/
+    │   ├── auth.go               # Handlers for signup and login.
+    │   └── profile.go            # Handler for user profile retrieval.
+    ├── jwt/
+    │   └── jwt.go                # JWT token generation logic.
+    ├── middleware.go/
+    │   ├── auth_middleware.go    # Authentication middleware for protected routes.
+    │   └── cors_middleware.go    # CORS middleware.
+    ├── models/
+    │   └── models.go             # Data structures for the application.
+    └── utils/
+        └── utils.go              # Utility functions for password hashing and validation.
 
-
-
-**Frontend Structure**
+Frontend Structure
 .
 ├── .gitignore
 ├── package.json
@@ -114,35 +112,30 @@ The project is organized into two main directories: `backend` for the Go API and
 ├── index.html
 ├── vite.config.js
 └── src/
-├── App.jsx                   # Main application component and router setup.
-├── main.jsx                  # Main entry point for the React application.
-├── index.css                 # Main CSS file, imports Tailwind.
-├── assets/
-│   └── react.svg             # React logo.
-├── components/
-│   ├── Auth/
-│   │   ├── LoginForm.jsx     # Login form component.
-│   │   └── SignupForm.jsx    # Signup form component.
-│   ├── Common/
-│   │   ├── LoadingSpinner.jsx # Loading spinner component.
-│   │   └── ProtectedRoute.jsx # HOC for protecting routes.
-│   ├── Home/
-│   │   └── HomePage.jsx      # Homepage component.
-│   ├── Navigation/
-│   │   └── Header.jsx        # Navigation header component.
-│   └── Profile/
-│       └── ProfilePage.jsx   # User profile page component.
-├── contexts/
-│   ├── Auth.js               # Auth context creator and custom hook.
-│   └── AuthContext.jsx       # Auth provider component.
-├── services/
-│   └── api.js                # Axios instance for API requests.
-└── utils/
-└── auth.js               # Authentication-related utility functions.
-
-
-
-
-
+    ├── App.jsx                   # Main application component and router setup.
+    ├── main.jsx                  # Main entry point for the React application.
+    ├── index.css                 # Main CSS file, imports Tailwind.
+    ├── assets/
+    │   └── react.svg             # React logo.
+    ├── components/
+    │   ├── Auth/
+    │   │   ├── LoginForm.jsx     # Login form component.
+    │   │   └── SignupForm.jsx    # Signup form component.
+    │   ├── Common/
+    │   │   ├── LoadingSpinner.jsx # Loading spinner component.
+    │   │   └── ProtectedRoute.jsx # HOC for protecting routes.
+    │   ├── Home/
+    │   │   └── HomePage.jsx      # Homepage component.
+    │   ├── Navigation/
+    │   │   └── Header.jsx        # Navigation header component.
+    │   └── Profile/
+    │       └── ProfilePage.jsx   # User profile page component.
+    ├── contexts/
+    │   ├── Auth.js               # Auth context creator and custom hook.
+    │   └── AuthContext.jsx       # Auth provider component.
+    ├── services/
+    │   └── api.js                # Axios instance for API requests.
+    └── utils/
+        └── auth.js               # Authentication-related utility functions.
 
 
